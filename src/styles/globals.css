@@ -1,0 +1,155 @@
+/**
+ * Global styles for @mawtech/glass-ui
+ * @package @mawtech/glass-ui
+ * @author MAW Tech Solutions
+ * @see https://mawtechsolutions.com
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Glass Colors */
+    --glass-cyan: 0 240 255;
+    --glass-violet: 139 92 246;
+    --glass-pink: 236 72 153;
+    
+    /* Status Colors */
+    --glass-success: 16 185 129;
+    --glass-warning: 245 158 11;
+    --glass-error: 239 68 68;
+    
+    /* Backgrounds */
+    --glass-bg-dark: 9 9 11;
+    --glass-bg-card: 15 23 42;
+    --glass-bg-light: 248 250 252;
+    
+    /* Text Colors */
+    --glass-text-primary: 255 255 255;
+    --glass-text-secondary: 148 163 184;
+    
+    /* Glass Effects */
+    --glass-blur: 40px;
+    --glass-blur-sm: 20px;
+    --glass-blur-lg: 60px;
+    --glass-bg-opacity: 0.7;
+    --glass-border-opacity: 0.12;
+    
+    /* Shadows */
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --glass-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+    --glass-glow: 0 0 40px rgba(0, 240, 255, 0.3);
+    --glass-glow-violet: 0 0 40px rgba(139, 92, 246, 0.3);
+    --glass-glow-pink: 0 0 40px rgba(236, 72, 153, 0.3);
+    
+    /* Border Radius */
+    --glass-radius: 20px;
+    --glass-radius-sm: 12px;
+    --glass-radius-lg: 24px;
+    
+    /* Animation */
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 350ms;
+    --easing: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer components {
+  /* Base glass effect */
+  .glass {
+    background: rgba(var(--glass-bg-card), var(--glass-bg-opacity));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+  }
+  
+  /* Glass with glow effect */
+  .glass-glow {
+    box-shadow: var(--glass-shadow), var(--glass-glow);
+  }
+  
+  .glass-glow-violet {
+    box-shadow: var(--glass-shadow), var(--glass-glow-violet);
+  }
+  
+  .glass-glow-pink {
+    box-shadow: var(--glass-shadow), var(--glass-glow-pink);
+  }
+  
+  /* Aurora gradient background */
+  .aurora-gradient {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--glass-cyan)) 0%,
+      rgb(var(--glass-violet)) 50%,
+      rgb(var(--glass-pink)) 100%
+    );
+    background-size: 200% 200%;
+  }
+  
+  /* Inner light effect */
+  .inner-light {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Glass card variants */
+  .glass-card {
+    @apply relative overflow-hidden;
+    background: rgba(var(--glass-bg-card), var(--glass-bg-opacity));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+  }
+  
+  /* Focus ring for accessibility */
+  .glass-focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-glass-dark;
+  }
+}
+
+@layer utilities {
+  /* Text balance utility */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Custom scrollbar for glass elements */
+  .glass-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .glass-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+  
+  .glass-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+  
+  .glass-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
