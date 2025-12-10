@@ -5,50 +5,58 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef, createContext, useContext, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import {
+  forwardRef,
+  createContext,
+  useContext,
+  useState,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from "react";
+import type { HTMLMotionProps } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassSidebarVariants = cva(
   [
-    'flex flex-col',
-    'bg-glass-card/70 backdrop-blur-glass',
-    'border-r border-white/12',
-    'shadow-glass',
-    'transition-all duration-300',
+    "flex flex-col",
+    "bg-glass-card/70 backdrop-blur-glass",
+    "border-r border-white/12",
+    "shadow-glass",
+    "transition-all duration-300",
   ],
   {
     variants: {
       position: {
-        left: 'left-0',
-        right: 'right-0 border-r-0 border-l',
+        left: "left-0",
+        right: "right-0 border-r-0 border-l",
       },
       variant: {
-        default: '',
-        floating: 'rounded-glass m-4 border shadow-glass-lg',
+        default: "",
+        floating: "rounded-glass m-4 border shadow-glass-lg",
       },
     },
     defaultVariants: {
-      position: 'left',
-      variant: 'default',
+      position: "left",
+      variant: "default",
     },
   }
 );
 
 const glassSidebarItemVariants = cva(
   [
-    'relative flex items-center gap-3 px-4 py-3 rounded-xl',
-    'text-sm font-medium text-white/70',
-    'transition-all duration-200',
-    'hover:text-white hover:bg-white/10',
-    'focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-inset',
+    "relative flex items-center gap-3 px-4 py-3 rounded-xl",
+    "text-sm font-medium text-white/70",
+    "transition-all duration-200",
+    "hover:text-white hover:bg-white/10",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-inset",
   ],
   {
     variants: {
       active: {
-        true: 'text-white bg-white/10',
-        false: '',
+        true: "text-white bg-white/10",
+        false: "",
       },
     },
     defaultVariants: {
@@ -63,95 +71,96 @@ interface SidebarContextValue {
   setCollapsed: (collapsed: boolean) => void;
 }
 
-const SidebarContext = createContext<SidebarContextValue | undefined>(undefined);
+const SidebarContext = createContext<SidebarContextValue | undefined>(
+  undefined
+);
 
 const useSidebar = () => {
   const context = useContext(SidebarContext);
   if (!context) {
-    throw new Error('Sidebar components must be used within GlassSidebar');
+    throw new Error("Sidebar components must be used within GlassSidebar");
   }
   return context;
 };
 
 export interface GlassSidebarItemProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof glassSidebarItemVariants> {
   /** Item icon */
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   /** Item label */
-  children: React.ReactNode;
+  children: ReactNode;
   /** Link href */
   href?: string;
   /** Badge content */
-  badge?: React.ReactNode;
+  badge?: ReactNode;
 }
 
-export const GlassSidebarItem = forwardRef<HTMLButtonElement, GlassSidebarItemProps>(
-  ({ children, active, icon, href, badge, className, ...props }, ref) => {
-    const { collapsed } = useSidebar();
+export const GlassSidebarItem = forwardRef<
+  HTMLButtonElement,
+  GlassSidebarItemProps
+>(({ children, active, icon, href, badge, className, ...props }, ref) => {
+  const { collapsed } = useSidebar();
 
-    const content = (
-      <>
-        {icon && <span className="shrink-0 w-5 h-5">{icon}</span>}
-        <AnimatePresence mode="wait">
-          {!collapsed && (
-            <motion.span
-              initial={{ opacity: 0, width: 0 }}
-              animate={{ opacity: 1, width: 'auto' }}
-              exit={{ opacity: 0, width: 0 }}
-              transition={{ duration: 0.2 }}
-              className="truncate"
-            >
-              {children}
-            </motion.span>
-          )}
-        </AnimatePresence>
-        {badge && !collapsed && (
-          <span className="ml-auto shrink-0">{badge}</span>
-        )}
-        {active && (
-          <motion.div
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-glass-cyan rounded-r-full"
-            layoutId="sidebar-indicator"
+  const content = (
+    <>
+      {icon && <span className="shrink-0 w-5 h-5">{icon}</span>}
+      <AnimatePresence mode="wait">
+        {!collapsed && (
+          <motion.span
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: "auto" }}
+            exit={{ opacity: 0, width: 0 }}
             transition={{ duration: 0.2 }}
-          />
+            className="truncate"
+          >
+            {children}
+          </motion.span>
         )}
-      </>
-    );
+      </AnimatePresence>
+      {badge && !collapsed && <span className="ml-auto shrink-0">{badge}</span>}
+      {active && (
+        <motion.div
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-glass-cyan rounded-r-full"
+          layoutId="sidebar-indicator"
+          transition={{ duration: 0.2 }}
+        />
+      )}
+    </>
+  );
 
-    const itemClasses = cn(
-      glassSidebarItemVariants({ active }),
-      collapsed && 'justify-center px-3',
-      className
-    );
+  const itemClasses = cn(
+    glassSidebarItemVariants({ active }),
+    collapsed && "justify-center px-3",
+    className
+  );
 
-    if (href) {
-      return (
-        <a href={href} className={itemClasses}>
-          {content}
-        </a>
-      );
-    }
-
+  if (href) {
     return (
-      <button ref={ref} className={itemClasses} {...props}>
+      <a href={href} className={itemClasses}>
         {content}
-      </button>
+      </a>
     );
   }
-);
 
-GlassSidebarItem.displayName = 'GlassSidebarItem';
+  return (
+    <button ref={ref} className={itemClasses} {...props}>
+      {content}
+    </button>
+  );
+});
+
+GlassSidebarItem.displayName = "GlassSidebarItem";
 
 export interface GlassSidebarProps
-  extends React.HTMLAttributes<HTMLElement>,
+  extends Omit<HTMLMotionProps<"aside">, "ref">,
     VariantProps<typeof glassSidebarVariants> {
   /** Header content */
-  header?: React.ReactNode;
+  header?: ReactNode;
   /** Footer content */
-  footer?: React.ReactNode;
+  footer?: ReactNode;
   /** Navigation items */
-  children: React.ReactNode;
+  children: ReactNode;
   /** Collapsed state */
   collapsed?: boolean;
   /** Callback when collapsed state changes */
@@ -166,14 +175,19 @@ export interface GlassSidebarProps
   collapsedWidth?: number;
 }
 
-const ChevronIcon = ({ direction }: { direction: 'left' | 'right' }) => (
+const ChevronIcon = ({ direction }: { direction: "left" | "right" }) => (
   <svg
-    className={cn('w-4 h-4', direction === 'left' && 'rotate-180')}
+    className={cn("w-4 h-4", direction === "left" && "rotate-180")}
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 5l7 7-7 7"
+    />
   </svg>
 );
 
@@ -215,7 +229,8 @@ export const GlassSidebar = forwardRef<HTMLElement, GlassSidebarProps>(
     },
     ref
   ) => {
-    const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
+    const [internalCollapsed, setInternalCollapsed] =
+      useState(defaultCollapsed);
     const collapsed = controlledCollapsed ?? internalCollapsed;
 
     const setCollapsed = (value: boolean) => {
@@ -233,22 +248,25 @@ export const GlassSidebar = forwardRef<HTMLElement, GlassSidebarProps>(
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           className={cn(
             glassSidebarVariants({ position, variant }),
-            'h-full overflow-hidden',
+            "h-full overflow-hidden",
             className
           )}
           {...props}
         >
           {/* Header */}
           {header && (
-            <div className={cn('p-4 border-b border-white/12', collapsed && 'px-3')}>
+            <div
+              className={cn(
+                "p-4 border-b border-white/12",
+                collapsed && "px-3"
+              )}
+            >
               {header}
             </div>
           )}
 
           {/* Navigation */}
-          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-            {children}
-          </nav>
+          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">{children}</nav>
 
           {/* Collapse Toggle */}
           {collapsible && (
@@ -256,20 +274,20 @@ export const GlassSidebar = forwardRef<HTMLElement, GlassSidebarProps>(
               <button
                 onClick={() => setCollapsed(!collapsed)}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-3 rounded-xl',
-                  'text-sm font-medium text-white/70',
-                  'hover:text-white hover:bg-white/10',
-                  'transition-all duration-200',
-                  collapsed && 'justify-center px-3'
+                  "w-full flex items-center gap-3 px-4 py-3 rounded-xl",
+                  "text-sm font-medium text-white/70",
+                  "hover:text-white hover:bg-white/10",
+                  "transition-all duration-200",
+                  collapsed && "justify-center px-3"
                 )}
-                aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
-                <ChevronIcon direction={collapsed ? 'right' : 'left'} />
+                <ChevronIcon direction={collapsed ? "right" : "left"} />
                 <AnimatePresence mode="wait">
                   {!collapsed && (
                     <motion.span
                       initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: 'auto' }}
+                      animate={{ opacity: 1, width: "auto" }}
                       exit={{ opacity: 0, width: 0 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -283,7 +301,12 @@ export const GlassSidebar = forwardRef<HTMLElement, GlassSidebarProps>(
 
           {/* Footer */}
           {footer && (
-            <div className={cn('p-4 border-t border-white/12', collapsed && 'px-3')}>
+            <div
+              className={cn(
+                "p-4 border-t border-white/12",
+                collapsed && "px-3"
+              )}
+            >
               {footer}
             </div>
           )}
@@ -293,7 +316,6 @@ export const GlassSidebar = forwardRef<HTMLElement, GlassSidebarProps>(
   }
 );
 
-GlassSidebar.displayName = 'GlassSidebar';
+GlassSidebar.displayName = "GlassSidebar";
 
 export default GlassSidebar;
-

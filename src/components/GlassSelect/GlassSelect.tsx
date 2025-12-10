@@ -5,36 +5,36 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import * as SelectPrimitive from '@radix-ui/react-select';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassSelectTriggerVariants = cva(
   [
-    'flex items-center justify-between gap-2',
-    'w-full bg-glass-card/50 backdrop-blur-glass',
-    'border border-white/12 rounded-xl',
-    'text-white',
-    'transition-all duration-200',
-    'focus:outline-none focus:border-glass-cyan/50 focus:shadow-glass-glow',
-    'disabled:opacity-50 disabled:cursor-not-allowed',
-    'data-[placeholder]:text-white/40',
+    "flex items-center justify-between gap-2",
+    "w-full bg-glass-card/50 backdrop-blur-glass",
+    "border border-white/12 rounded-xl",
+    "text-white",
+    "transition-all duration-200",
+    "focus:outline-none focus:border-glass-cyan/50 focus:shadow-glass-glow",
+    "disabled:opacity-50 disabled:cursor-not-allowed",
+    "data-[placeholder]:text-white/40",
   ],
   {
     variants: {
       selectSize: {
-        sm: 'h-9 px-3 text-sm',
-        md: 'h-11 px-4 text-base',
-        lg: 'h-13 px-5 text-lg',
+        sm: "h-9 px-3 text-sm",
+        md: "h-11 px-4 text-base",
+        lg: "h-13 px-5 text-lg",
       },
       hasError: {
-        true: 'border-red-500/50 focus:border-red-500 focus:shadow-[0_0_40px_rgba(239,68,68,0.2)]',
-        false: '',
+        true: "border-red-500/50 focus:border-red-500 focus:shadow-[0_0_40px_rgba(239,68,68,0.2)]",
+        false: "",
       },
     },
     defaultVariants: {
-      selectSize: 'md',
+      selectSize: "md",
       hasError: false,
     },
   }
@@ -47,7 +47,7 @@ export interface SelectOption {
 }
 
 export interface GlassSelectProps
-  extends Omit<SelectPrimitive.SelectProps, 'children'>,
+  extends Omit<SelectPrimitive.SelectProps, "children">,
     VariantProps<typeof glassSelectTriggerVariants> {
   /** Select label */
   label?: string;
@@ -118,7 +118,7 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
   (
     {
       label,
-      placeholder = 'Select an option',
+      placeholder = "Select an option",
       options,
       helperText,
       error,
@@ -134,9 +134,18 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
     const selectId = `glass-select-${Math.random().toString(36).substr(2, 9)}`;
 
     return (
-      <div className={cn('flex flex-col gap-1.5', fullWidth && 'w-full', containerClassName)}>
+      <div
+        className={cn(
+          "flex flex-col gap-1.5",
+          fullWidth && "w-full",
+          containerClassName
+        )}
+      >
         {label && (
-          <label htmlFor={selectId} className="text-sm font-medium text-white/80">
+          <label
+            htmlFor={selectId}
+            className="text-sm font-medium text-white/80"
+          >
             {label}
           </label>
         )}
@@ -151,7 +160,11 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
             )}
             aria-invalid={!!error}
             aria-describedby={
-              error ? `${selectId}-error` : helperText ? `${selectId}-helper` : undefined
+              error
+                ? `${selectId}-error`
+                : helperText
+                ? `${selectId}-helper`
+                : undefined
             }
           >
             <SelectPrimitive.Value placeholder={placeholder} />
@@ -163,12 +176,12 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
           <SelectPrimitive.Portal>
             <SelectPrimitive.Content
               className={cn(
-                'overflow-hidden rounded-xl',
-                'bg-glass-card/95 backdrop-blur-glass-lg',
-                'border border-white/12',
-                'shadow-glass-lg',
-                'animate-scale-in',
-                'z-50'
+                "overflow-hidden rounded-xl",
+                "bg-glass-card/95 backdrop-blur-glass-lg",
+                "border border-white/12",
+                "shadow-glass-lg",
+                "animate-scale-in",
+                "z-50"
               )}
               position="popper"
               sideOffset={4}
@@ -180,15 +193,17 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
                     value={option.value}
                     disabled={option.disabled}
                     className={cn(
-                      'relative flex items-center px-3 py-2 rounded-lg',
-                      'text-sm text-white',
-                      'cursor-pointer select-none outline-none',
-                      'data-[highlighted]:bg-white/10',
-                      'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed',
-                      'transition-colors duration-150'
+                      "relative flex items-center px-3 py-2 rounded-lg",
+                      "text-sm text-white",
+                      "cursor-pointer select-none outline-none",
+                      "data-[highlighted]:bg-white/10",
+                      "data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed",
+                      "transition-colors duration-150"
                     )}
                   >
-                    <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
+                    <SelectPrimitive.ItemText>
+                      {option.label}
+                    </SelectPrimitive.ItemText>
                     <SelectPrimitive.ItemIndicator className="absolute right-2">
                       <CheckIcon />
                     </SelectPrimitive.ItemIndicator>
@@ -202,8 +217,8 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
         {(error || helperText) && (
           <p
             id={error ? `${selectId}-error` : `${selectId}-helper`}
-            className={cn('text-sm', error ? 'text-red-400' : 'text-white/50')}
-            role={error ? 'alert' : undefined}
+            className={cn("text-sm", error ? "text-red-400" : "text-white/50")}
+            role={error ? "alert" : undefined}
           >
             {error || helperText}
           </p>
@@ -213,7 +228,6 @@ export const GlassSelect = forwardRef<HTMLButtonElement, GlassSelectProps>(
   }
 );
 
-GlassSelect.displayName = 'GlassSelect';
+GlassSelect.displayName = "GlassSelect";
 
 export default GlassSelect;
-

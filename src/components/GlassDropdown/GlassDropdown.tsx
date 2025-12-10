@@ -5,20 +5,21 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "../../utils/cn";
 
-export interface GlassDropdownProps extends DropdownMenuPrimitive.DropdownMenuProps {
+export interface GlassDropdownProps
+  extends DropdownMenuPrimitive.DropdownMenuProps {
   /** Trigger element */
   trigger: React.ReactNode;
   /** Menu items */
   children: React.ReactNode;
   /** Content alignment */
-  align?: 'start' | 'center' | 'end';
+  align?: "start" | "center" | "end";
   /** Content side */
-  side?: 'top' | 'right' | 'bottom' | 'left';
+  side?: "top" | "right" | "bottom" | "left";
   /** Offset from trigger */
   sideOffset?: number;
 }
@@ -41,33 +42,34 @@ const contentVariants = {
 /**
  * GlassDropdownItem - A dropdown menu item
  */
-export const GlassDropdownItem = forwardRef<HTMLDivElement, GlassDropdownItemProps>(
-  ({ children, icon, shortcut, destructive, className, ...props }, ref) => {
-    return (
-      <DropdownMenuPrimitive.Item
-        ref={ref}
-        className={cn(
-          'relative flex items-center gap-2 px-3 py-2 rounded-lg',
-          'text-sm text-white outline-none cursor-pointer',
-          'data-[highlighted]:bg-white/10',
-          'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed',
-          'transition-colors duration-150',
-          destructive && 'text-red-400 data-[highlighted]:bg-red-500/20',
-          className
-        )}
-        {...props}
-      >
-        {icon && <span className="w-4 h-4 shrink-0">{icon}</span>}
-        <span className="flex-1">{children}</span>
-        {shortcut && (
-          <span className="ml-auto text-xs text-white/40">{shortcut}</span>
-        )}
-      </DropdownMenuPrimitive.Item>
-    );
-  }
-);
+export const GlassDropdownItem = forwardRef<
+  HTMLDivElement,
+  GlassDropdownItemProps
+>(({ children, icon, shortcut, destructive, className, ...props }, ref) => {
+  return (
+    <DropdownMenuPrimitive.Item
+      ref={ref}
+      className={cn(
+        "relative flex items-center gap-2 px-3 py-2 rounded-lg",
+        "text-sm text-white outline-none cursor-pointer",
+        "data-[highlighted]:bg-white/10",
+        "data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed",
+        "transition-colors duration-150",
+        destructive && "text-red-400 data-[highlighted]:bg-red-500/20",
+        className
+      )}
+      {...props}
+    >
+      {icon && <span className="w-4 h-4 shrink-0">{icon}</span>}
+      <span className="flex-1">{children}</span>
+      {shortcut && (
+        <span className="ml-auto text-xs text-white/40">{shortcut}</span>
+      )}
+    </DropdownMenuPrimitive.Item>
+  );
+});
 
-GlassDropdownItem.displayName = 'GlassDropdownItem';
+GlassDropdownItem.displayName = "GlassDropdownItem";
 
 /**
  * GlassDropdownSeparator - A separator between menu items
@@ -78,12 +80,12 @@ export const GlassDropdownSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn('h-px my-1 bg-white/10', className)}
+    className={cn("h-px my-1 bg-white/10", className)}
     {...props}
   />
 ));
 
-GlassDropdownSeparator.displayName = 'GlassDropdownSeparator';
+GlassDropdownSeparator.displayName = "GlassDropdownSeparator";
 
 /**
  * GlassDropdownLabel - A label for grouping items
@@ -94,12 +96,12 @@ export const GlassDropdownLabel = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
     ref={ref}
-    className={cn('px-3 py-2 text-xs font-medium text-white/50', className)}
+    className={cn("px-3 py-2 text-xs font-medium text-white/50", className)}
     {...props}
   />
 ));
 
-GlassDropdownLabel.displayName = 'GlassDropdownLabel';
+GlassDropdownLabel.displayName = "GlassDropdownLabel";
 
 /**
  * GlassDropdown - A glassmorphism dropdown menu
@@ -119,8 +121,8 @@ export const GlassDropdown = forwardRef<HTMLDivElement, GlassDropdownProps>(
     {
       trigger,
       children,
-      align = 'start',
-      side = 'bottom',
+      align = "start",
+      side = "bottom",
       sideOffset = 4,
       open,
       onOpenChange,
@@ -129,7 +131,11 @@ export const GlassDropdown = forwardRef<HTMLDivElement, GlassDropdownProps>(
     ref
   ) => {
     return (
-      <DropdownMenuPrimitive.Root open={open} onOpenChange={onOpenChange} {...props}>
+      <DropdownMenuPrimitive.Root
+        open={open}
+        onOpenChange={onOpenChange}
+        {...props}
+      >
         <DropdownMenuPrimitive.Trigger asChild>
           {trigger}
         </DropdownMenuPrimitive.Trigger>
@@ -145,11 +151,11 @@ export const GlassDropdown = forwardRef<HTMLDivElement, GlassDropdownProps>(
             >
               <motion.div
                 className={cn(
-                  'min-w-[180px] p-1 rounded-xl',
-                  'bg-glass-card/95 backdrop-blur-glass-lg',
-                  'border border-white/12',
-                  'shadow-glass-lg',
-                  'z-50'
+                  "min-w-[180px] p-1 rounded-xl",
+                  "bg-glass-card/95 backdrop-blur-glass-lg",
+                  "border border-white/12",
+                  "shadow-glass-lg",
+                  "z-50"
                 )}
                 variants={contentVariants}
                 initial="hidden"
@@ -167,7 +173,6 @@ export const GlassDropdown = forwardRef<HTMLDivElement, GlassDropdownProps>(
   }
 );
 
-GlassDropdown.displayName = 'GlassDropdown';
+GlassDropdown.displayName = "GlassDropdown";
 
 export default GlassDropdown;
-

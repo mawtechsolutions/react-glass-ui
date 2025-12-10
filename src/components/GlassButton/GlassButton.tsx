@@ -5,94 +5,94 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import { motion, HTMLMotionProps } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassButtonVariants = cva(
   // Base styles
   [
-    'relative inline-flex items-center justify-center gap-2',
-    'font-medium transition-all duration-200',
-    'focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-glass-dark',
-    'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+    "relative inline-flex items-center justify-center gap-2",
+    "font-medium transition-all duration-200",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-glass-dark",
+    "disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
   ],
   {
     variants: {
       variant: {
         primary: [
-          'bg-glass-cyan text-glass-dark',
-          'hover:bg-glass-cyan/90 hover:shadow-glass-glow',
-          'active:scale-[0.98]',
+          "bg-glass-cyan text-glass-dark",
+          "hover:bg-glass-cyan/90 hover:shadow-glass-glow",
+          "active:scale-[0.98]",
         ],
         secondary: [
-          'bg-glass-card/70 backdrop-blur-glass text-white',
-          'border border-glass-cyan/50',
-          'hover:bg-glass-card/90 hover:border-glass-cyan',
-          'active:scale-[0.98]',
+          "bg-glass-card/70 backdrop-blur-glass text-white",
+          "border border-glass-cyan/50",
+          "hover:bg-glass-card/90 hover:border-glass-cyan",
+          "active:scale-[0.98]",
         ],
         ghost: [
-          'bg-transparent text-white',
-          'hover:bg-white/10',
-          'active:bg-white/20',
+          "bg-transparent text-white",
+          "hover:bg-white/10",
+          "active:bg-white/20",
         ],
         outline: [
-          'bg-transparent text-white',
-          'border border-white/20',
-          'hover:bg-white/10 hover:border-white/40',
-          'active:bg-white/20',
+          "bg-transparent text-white",
+          "border border-white/20",
+          "hover:bg-white/10 hover:border-white/40",
+          "active:bg-white/20",
         ],
         danger: [
-          'bg-red-500/80 backdrop-blur-glass text-white',
-          'border border-red-400/50',
-          'hover:bg-red-500 hover:shadow-[0_0_40px_rgba(239,68,68,0.3)]',
-          'active:scale-[0.98]',
+          "bg-red-500/80 backdrop-blur-glass text-white",
+          "border border-red-400/50",
+          "hover:bg-red-500 hover:shadow-[0_0_40px_rgba(239,68,68,0.3)]",
+          "active:scale-[0.98]",
         ],
         success: [
-          'bg-emerald-500/80 backdrop-blur-glass text-white',
-          'border border-emerald-400/50',
-          'hover:bg-emerald-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.3)]',
-          'active:scale-[0.98]',
+          "bg-emerald-500/80 backdrop-blur-glass text-white",
+          "border border-emerald-400/50",
+          "hover:bg-emerald-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.3)]",
+          "active:scale-[0.98]",
         ],
         aurora: [
-          'aurora-gradient text-white animate-aurora bg-[length:200%_200%]',
-          'hover:shadow-glass-glow',
-          'active:scale-[0.98]',
+          "aurora-gradient text-white animate-aurora bg-[length:200%_200%]",
+          "hover:shadow-glass-glow",
+          "active:scale-[0.98]",
         ],
         violet: [
-          'bg-glass-violet text-white',
-          'hover:bg-glass-violet/90 hover:shadow-glass-glow-violet',
-          'active:scale-[0.98]',
+          "bg-glass-violet text-white",
+          "hover:bg-glass-violet/90 hover:shadow-glass-glow-violet",
+          "active:scale-[0.98]",
         ],
         pink: [
-          'bg-glass-pink text-white',
-          'hover:bg-glass-pink/90 hover:shadow-glass-glow-pink',
-          'active:scale-[0.98]',
+          "bg-glass-pink text-white",
+          "hover:bg-glass-pink/90 hover:shadow-glass-glow-pink",
+          "active:scale-[0.98]",
         ],
       },
       size: {
-        xs: 'h-7 px-2.5 text-xs rounded-lg',
-        sm: 'h-8 px-3 text-sm rounded-lg',
-        md: 'h-10 px-4 text-sm rounded-xl',
-        lg: 'h-12 px-6 text-base rounded-xl',
-        xl: 'h-14 px-8 text-lg rounded-2xl',
+        xs: "h-7 px-2.5 text-xs rounded-lg",
+        sm: "h-8 px-3 text-sm rounded-lg",
+        md: "h-10 px-4 text-sm rounded-xl",
+        lg: "h-12 px-6 text-base rounded-xl",
+        xl: "h-14 px-8 text-lg rounded-2xl",
       },
       fullWidth: {
-        true: 'w-full',
-        false: '',
+        true: "w-full",
+        false: "",
       },
     },
     defaultVariants: {
-      variant: 'primary',
-      size: 'md',
+      variant: "primary",
+      size: "md",
       fullWidth: false,
     },
   }
 );
 
 export interface GlassButtonProps
-  extends Omit<HTMLMotionProps<'button'>, 'children'>,
+  extends Omit<HTMLMotionProps<"button">, "children">,
     VariantProps<typeof glassButtonVariants> {
   /** Button content */
   children: React.ReactNode;
@@ -146,7 +146,10 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
     return (
       <motion.button
         ref={ref}
-        className={cn(glassButtonVariants({ variant, size, fullWidth }), className)}
+        className={cn(
+          glassButtonVariants({ variant, size, fullWidth }),
+          className
+        )}
         disabled={disabled || loading}
         {...motionProps}
         {...props}
@@ -185,7 +188,6 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
   }
 );
 
-GlassButton.displayName = 'GlassButton';
+GlassButton.displayName = "GlassButton";
 
 export default GlassButton;
-

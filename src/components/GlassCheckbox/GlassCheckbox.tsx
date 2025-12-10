@@ -5,40 +5,40 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { motion, AnimatePresence } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassCheckboxVariants = cva(
   [
-    'flex items-center justify-center',
-    'bg-glass-card/50 backdrop-blur-glass',
-    'border border-white/20 rounded-md',
-    'transition-all duration-200',
-    'focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-glass-dark',
-    'disabled:opacity-50 disabled:cursor-not-allowed',
-    'data-[state=checked]:bg-glass-cyan data-[state=checked]:border-glass-cyan',
-    'hover:border-white/40',
-    'data-[state=checked]:hover:bg-glass-cyan/90',
+    "flex items-center justify-center",
+    "bg-glass-card/50 backdrop-blur-glass",
+    "border border-white/20 rounded-md",
+    "transition-all duration-200",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-glass-dark",
+    "disabled:opacity-50 disabled:cursor-not-allowed",
+    "data-[state=checked]:bg-glass-cyan data-[state=checked]:border-glass-cyan",
+    "hover:border-white/40",
+    "data-[state=checked]:hover:bg-glass-cyan/90",
   ],
   {
     variants: {
       checkboxSize: {
-        sm: 'w-4 h-4',
-        md: 'w-5 h-5',
-        lg: 'w-6 h-6',
+        sm: "w-4 h-4",
+        md: "w-5 h-5",
+        lg: "w-6 h-6",
       },
     },
     defaultVariants: {
-      checkboxSize: 'md',
+      checkboxSize: "md",
     },
   }
 );
 
 export interface GlassCheckboxProps
-  extends Omit<CheckboxPrimitive.CheckboxProps, 'children'>,
+  extends Omit<CheckboxPrimitive.CheckboxProps, "children">,
     VariantProps<typeof glassCheckboxVariants> {
   /** Checkbox label */
   label?: string;
@@ -48,16 +48,16 @@ export interface GlassCheckboxProps
   containerClassName?: string;
 }
 
-const CheckIcon = ({ size }: { size: 'sm' | 'md' | 'lg' }) => {
+const CheckIcon = ({ size }: { size: "sm" | "md" | "lg" }) => {
   const sizes = {
-    sm: 'w-2.5 h-2.5',
-    md: 'w-3 h-3',
-    lg: 'w-4 h-4',
+    sm: "w-2.5 h-2.5",
+    md: "w-3 h-3",
+    lg: "w-4 h-4",
   };
 
   return (
     <motion.svg
-      className={cn(sizes[size], 'text-glass-dark')}
+      className={cn(sizes[size], "text-glass-dark")}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -95,7 +95,7 @@ export const GlassCheckbox = forwardRef<HTMLButtonElement, GlassCheckboxProps>(
     {
       label,
       description,
-      checkboxSize = 'md',
+      checkboxSize = "md",
       disabled,
       className,
       containerClassName,
@@ -104,10 +104,11 @@ export const GlassCheckbox = forwardRef<HTMLButtonElement, GlassCheckboxProps>(
     },
     ref
   ) => {
-    const checkboxId = id || `glass-checkbox-${Math.random().toString(36).substr(2, 9)}`;
+    const checkboxId =
+      id || `glass-checkbox-${Math.random().toString(36).substr(2, 9)}`;
 
     return (
-      <div className={cn('flex items-start gap-3', containerClassName)}>
+      <div className={cn("flex items-start gap-3", containerClassName)}>
         <CheckboxPrimitive.Root
           ref={ref}
           id={checkboxId}
@@ -117,7 +118,7 @@ export const GlassCheckbox = forwardRef<HTMLButtonElement, GlassCheckboxProps>(
         >
           <CheckboxPrimitive.Indicator asChild>
             <AnimatePresence mode="wait">
-              <CheckIcon size={checkboxSize || 'md'} />
+              <CheckIcon size={checkboxSize || "md"} />
             </AnimatePresence>
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
@@ -128,15 +129,20 @@ export const GlassCheckbox = forwardRef<HTMLButtonElement, GlassCheckboxProps>(
               <label
                 htmlFor={checkboxId}
                 className={cn(
-                  'text-sm font-medium text-white cursor-pointer',
-                  disabled && 'opacity-50 cursor-not-allowed'
+                  "text-sm font-medium text-white cursor-pointer",
+                  disabled && "opacity-50 cursor-not-allowed"
                 )}
               >
                 {label}
               </label>
             )}
             {description && (
-              <p className={cn('text-sm text-white/50', disabled && 'opacity-50')}>
+              <p
+                className={cn(
+                  "text-sm text-white/50",
+                  disabled && "opacity-50"
+                )}
+              >
                 {description}
               </p>
             )}
@@ -147,7 +153,6 @@ export const GlassCheckbox = forwardRef<HTMLButtonElement, GlassCheckboxProps>(
   }
 );
 
-GlassCheckbox.displayName = 'GlassCheckbox';
+GlassCheckbox.displayName = "GlassCheckbox";
 
 export default GlassCheckbox;
-

@@ -5,44 +5,44 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassTooltipVariants = cva(
   [
-    'px-3 py-2 rounded-lg',
-    'bg-glass-card backdrop-blur-glass',
-    'shadow-[0_4px_12px_rgba(0,0,0,0.4),inset_0_0_0_1px_rgba(255,255,255,0.1)]',
-    'text-sm text-white',
-    'z-50',
-    'animate-scale-in',
+    "px-3 py-2 rounded-lg",
+    "bg-glass-card backdrop-blur-glass",
+    "shadow-[0_4px_12px_rgba(0,0,0,0.4),inset_0_0_0_1px_rgba(255,255,255,0.1)]",
+    "text-sm text-white",
+    "z-50",
+    "animate-scale-in",
   ],
   {
     variants: {
       variant: {
-        default: '',
-        glow: 'shadow-[0_4px_20px_rgba(34,211,238,0.25),inset_0_0_0_1px_rgba(34,211,238,0.3)]',
+        default: "",
+        glow: "shadow-[0_4px_20px_rgba(34,211,238,0.25),inset_0_0_0_1px_rgba(34,211,238,0.3)]",
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: "default",
     },
   }
 );
 
 export interface GlassTooltipProps
-  extends Omit<TooltipPrimitive.TooltipProps, 'children'>,
+  extends Omit<TooltipPrimitive.TooltipProps, "children">,
     VariantProps<typeof glassTooltipVariants> {
   /** Tooltip content */
   content: React.ReactNode;
   /** Element to attach tooltip to */
   children: React.ReactNode;
   /** Side to show tooltip */
-  side?: 'top' | 'right' | 'bottom' | 'left';
+  side?: "top" | "right" | "bottom" | "left";
   /** Alignment of tooltip */
-  align?: 'start' | 'center' | 'end';
+  align?: "start" | "center" | "end";
   /** Offset from trigger */
   sideOffset?: number;
   /** Delay before showing (ms) */
@@ -69,8 +69,8 @@ export const GlassTooltip = forwardRef<HTMLDivElement, GlassTooltipProps>(
       content,
       children,
       variant,
-      side = 'top',
-      align = 'center',
+      side = "top",
+      align = "center",
       sideOffset = 8,
       delayDuration = 200,
       contentClassName,
@@ -90,18 +90,23 @@ export const GlassTooltip = forwardRef<HTMLDivElement, GlassTooltipProps>(
           onOpenChange={onOpenChange}
           {...props}
         >
-          <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+          <TooltipPrimitive.Trigger asChild>
+            {children}
+          </TooltipPrimitive.Trigger>
           <TooltipPrimitive.Portal>
             <TooltipPrimitive.Content
               ref={ref}
               side={side}
               align={align}
               sideOffset={sideOffset}
-              className={cn(glassTooltipVariants({ variant }), contentClassName)}
+              className={cn(
+                glassTooltipVariants({ variant }),
+                contentClassName
+              )}
             >
               {content}
               {showArrow && (
-                <TooltipPrimitive.Arrow 
+                <TooltipPrimitive.Arrow
                   className="fill-glass-card"
                   width={12}
                   height={6}
@@ -115,10 +120,9 @@ export const GlassTooltip = forwardRef<HTMLDivElement, GlassTooltipProps>(
   }
 );
 
-GlassTooltip.displayName = 'GlassTooltip';
+GlassTooltip.displayName = "GlassTooltip";
 
 // Export Provider for apps that need to wrap multiple tooltips
 export const GlassTooltipProvider = TooltipPrimitive.Provider;
 
 export default GlassTooltip;
-

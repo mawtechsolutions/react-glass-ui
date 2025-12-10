@@ -5,35 +5,35 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { motion, AnimatePresence } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassModalVariants = cva(
   [
-    'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
-    'w-full bg-glass-card/90 backdrop-blur-glass-lg',
-    'border border-white/12 rounded-glass',
-    'shadow-glass-lg',
-    'p-6',
-    'z-50',
-    'focus:outline-none',
+    "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+    "w-full bg-glass-card/90 backdrop-blur-glass-lg",
+    "border border-white/12 rounded-glass",
+    "shadow-glass-lg",
+    "p-6",
+    "z-50",
+    "focus:outline-none",
   ],
   {
     variants: {
       size: {
-        sm: 'max-w-sm',
-        md: 'max-w-md',
-        lg: 'max-w-lg',
-        xl: 'max-w-xl',
-        '2xl': 'max-w-2xl',
-        full: 'max-w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
+        sm: "max-w-sm",
+        md: "max-w-md",
+        lg: "max-w-lg",
+        xl: "max-w-xl",
+        "2xl": "max-w-2xl",
+        full: "max-w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]",
       },
     },
     defaultVariants: {
-      size: 'md',
+      size: "md",
     },
   }
 );
@@ -144,11 +144,11 @@ export const GlassModal = forwardRef<HTMLDivElement, GlassModalProps>(
                   {showClose && (
                     <DialogPrimitive.Close
                       className={cn(
-                        'absolute top-4 right-4',
-                        'p-2 rounded-lg',
-                        'text-white/50 hover:text-white hover:bg-white/10',
-                        'transition-colors duration-150',
-                        'focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan'
+                        "absolute top-4 right-4",
+                        "p-2 rounded-lg",
+                        "text-white/50 hover:text-white hover:bg-white/10",
+                        "transition-colors duration-150",
+                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan"
                       )}
                       aria-label="Close"
                     >
@@ -179,11 +179,10 @@ export const GlassModal = forwardRef<HTMLDivElement, GlassModalProps>(
   }
 );
 
-GlassModal.displayName = 'GlassModal';
+GlassModal.displayName = "GlassModal";
 
 // Export sub-components for custom composition
 export const GlassModalTrigger = DialogPrimitive.Trigger;
 export const GlassModalClose = DialogPrimitive.Close;
 
 export default GlassModal;
-

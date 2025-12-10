@@ -5,60 +5,57 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef } from 'react';
-import * as TabsPrimitive from '@radix-ui/react-tabs';
-import { motion } from 'framer-motion';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../utils/cn';
+import { forwardRef } from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
 
 const glassTabsListVariants = cva(
   [
-    'inline-flex items-center gap-1 p-1',
-    'bg-glass-card/50 backdrop-blur-glass',
-    'border border-white/12 rounded-xl',
+    "inline-flex items-center gap-1 p-1",
+    "bg-glass-card/50 backdrop-blur-glass",
+    "border border-white/12 rounded-xl",
   ],
   {
     variants: {
       variant: {
-        default: '',
-        pills: 'bg-transparent border-0 p-0',
-        underline: 'bg-transparent border-0 border-b border-white/12 rounded-none p-0 pb-px',
+        default: "",
+        pills: "bg-transparent border-0 p-0",
+        underline:
+          "bg-transparent border-0 border-b border-white/12 rounded-none p-0 pb-px",
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: "default",
     },
   }
 );
 
 const glassTabsTriggerVariants = cva(
   [
-    'relative px-4 py-2 rounded-lg',
-    'text-sm font-medium text-white/60',
-    'transition-all duration-200',
-    'hover:text-white',
-    'focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-inset',
-    'disabled:opacity-50 disabled:cursor-not-allowed',
+    "relative px-4 py-2 rounded-lg",
+    "text-sm font-medium text-white/60",
+    "transition-all duration-200",
+    "hover:text-white",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan focus-visible:ring-inset",
+    "disabled:opacity-50 disabled:cursor-not-allowed",
   ],
   {
     variants: {
       variant: {
         default: [
-          'data-[state=active]:text-white',
-          'data-[state=active]:bg-white/10',
+          "data-[state=active]:text-white",
+          "data-[state=active]:bg-white/10",
         ],
         pills: [
-          'data-[state=active]:text-glass-dark',
-          'data-[state=active]:bg-glass-cyan',
+          "data-[state=active]:text-glass-dark",
+          "data-[state=active]:bg-glass-cyan",
         ],
-        underline: [
-          'rounded-none',
-          'data-[state=active]:text-white',
-        ],
+        underline: ["rounded-none", "data-[state=active]:text-white"],
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: "default",
     },
   }
 );
@@ -96,44 +93,46 @@ export const GlassTabsList = forwardRef<HTMLDivElement, GlassTabsListProps>(
   )
 );
 
-GlassTabsList.displayName = 'GlassTabsList';
+GlassTabsList.displayName = "GlassTabsList";
 
 /**
  * GlassTabsTrigger - Individual tab trigger button
  */
-export const GlassTabsTrigger = forwardRef<HTMLButtonElement, GlassTabsTriggerProps>(
-  ({ className, variant, icon, children, ...props }, ref) => (
-    <TabsPrimitive.Trigger
-      ref={ref}
-      className={cn(glassTabsTriggerVariants({ variant }), className)}
-      {...props}
-    >
-      {icon && <span className="mr-2">{icon}</span>}
-      {children}
-    </TabsPrimitive.Trigger>
-  )
-);
+export const GlassTabsTrigger = forwardRef<
+  HTMLButtonElement,
+  GlassTabsTriggerProps
+>(({ className, variant, icon, children, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    className={cn(glassTabsTriggerVariants({ variant }), className)}
+    {...props}
+  >
+    {icon && <span className="mr-2">{icon}</span>}
+    {children}
+  </TabsPrimitive.Trigger>
+));
 
-GlassTabsTrigger.displayName = 'GlassTabsTrigger';
+GlassTabsTrigger.displayName = "GlassTabsTrigger";
 
 /**
  * GlassTabsContent - Content panel for a tab
  */
-export const GlassTabsContent = forwardRef<HTMLDivElement, GlassTabsContentProps>(
-  ({ className, ...props }, ref) => (
-    <TabsPrimitive.Content
-      ref={ref}
-      className={cn(
-        'mt-4 focus:outline-none',
-        'data-[state=active]:animate-fade-in',
-        className
-      )}
-      {...props}
-    />
-  )
-);
+export const GlassTabsContent = forwardRef<
+  HTMLDivElement,
+  GlassTabsContentProps
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Content
+    ref={ref}
+    className={cn(
+      "mt-4 focus:outline-none",
+      "data-[state=active]:animate-fade-in",
+      className
+    )}
+    {...props}
+  />
+));
 
-GlassTabsContent.displayName = 'GlassTabsContent';
+GlassTabsContent.displayName = "GlassTabsContent";
 
 /**
  * GlassTabs - A glassmorphism tabs component
@@ -154,7 +153,7 @@ export const GlassTabs = forwardRef<HTMLDivElement, GlassTabsProps>(
   ({ className, children, ...props }, ref) => (
     <TabsPrimitive.Root
       ref={ref}
-      className={cn('w-full', className)}
+      className={cn("w-full", className)}
       {...props}
     >
       {children}
@@ -162,7 +161,6 @@ export const GlassTabs = forwardRef<HTMLDivElement, GlassTabsProps>(
   )
 );
 
-GlassTabs.displayName = 'GlassTabs';
+GlassTabs.displayName = "GlassTabs";
 
 export default GlassTabs;
-
