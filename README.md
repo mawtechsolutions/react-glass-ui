@@ -7,7 +7,7 @@ Beautiful Apple-style glassmorphism React components.
 ![typescript](https://img.shields.io/badge/TypeScript-Ready-blue)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mawtech/react-glass-ui/main/assets/preview.png" alt="GlassUI Preview" width="600" />
+  <img src="https://raw.githubusercontent.com/mawtechsolutions/react-glass-ui/main/assets/preview.svg" alt="GlassUI Preview" width="700" />
 </p>
 
 ## ✨ Features
