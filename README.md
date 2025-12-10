@@ -2,12 +2,19 @@
 
 Beautiful Apple-style glassmorphism React components.
 
-![npm](https://img.shields.io/npm/v/@mawtech/glass-ui)
-![license](https://img.shields.io/npm/l/@mawtech/glass-ui)
-![typescript](https://img.shields.io/badge/TypeScript-Ready-blue)
+[![npm](https://img.shields.io/npm/v/@mawtech/glass-ui)](https://www.npmjs.com/package/@mawtech/glass-ui)
+[![license](https://img.shields.io/npm/l/@mawtech/glass-ui)](https://github.com/mawtechsolutions/react-glass-ui/blob/main/LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](https://www.typescriptlang.org/)
+[![Storybook](https://img.shields.io/badge/Storybook-Live%20Demo-FF4785?logo=storybook&logoColor=white)](https://glass-ui.mawtechsolutions.com)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mawtechsolutions/react-glass-ui/main/assets/preview.svg" alt="GlassUI Preview" width="700" />
+  <a href="https://glass-ui.mawtechsolutions.com">
+    <img src="https://raw.githubusercontent.com/mawtechsolutions/react-glass-ui/main/assets/preview.svg" alt="GlassUI Preview" width="700" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://glass-ui.mawtechsolutions.com"><strong>📚 View Live Documentation & Components →</strong></a>
 </p>
 
 ## ✨ Features
@@ -214,7 +221,9 @@ module.exports = {
 
 ## 📖 Documentation
 
-View full documentation and live examples at [Storybook](https://glass-ui.mawtechsolutions.com)
+🔗 **[View Live Documentation & Interactive Examples →](https://glass-ui.mawtechsolutions.com)**
+
+Explore all components with live previews, code examples, and customization options in our Storybook documentation.
 
 ## 🤝 Contributing
 
