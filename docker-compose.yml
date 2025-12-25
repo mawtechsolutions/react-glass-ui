@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  glass-ui:
+    build: .
+    container_name: glass-ui-storybook
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    networks:
+      - glass-ui-network
+
+networks:
+  glass-ui-network:
+    driver: bridge
+
