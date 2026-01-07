@@ -125,11 +125,10 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
               (rightIcon || isPassword) && 'pr-10',
               className
             )}
-            // Controlled component props - explicitly passed for clarity
-            value={value}
-            defaultValue={defaultValue}
-            onChange={onChange}
             {...props}
+            {...(value !== undefined ? { value } : {})}
+            {...(defaultValue !== undefined ? { defaultValue } : {})}
+            {...(onChange !== undefined ? { onChange } : {})}
           />
 
           {isPassword ? (
