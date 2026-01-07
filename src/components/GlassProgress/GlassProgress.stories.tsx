@@ -5,7 +5,7 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { GlassProgress, GlassCircularProgress } from './GlassProgress';
 

@@ -78,7 +78,7 @@ export interface GlassTabsTriggerProps
   icon?: React.ReactNode;
 }
 
-export interface GlassTabsContentProps extends TabsPrimitive.TabsContentProps {}
+export type GlassTabsContentProps = TabsPrimitive.TabsContentProps;
 
 /**
  * GlassTabsList - Container for tab triggers

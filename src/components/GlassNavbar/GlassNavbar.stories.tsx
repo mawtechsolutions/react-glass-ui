@@ -5,7 +5,7 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { GlassNavbar, GlassNavItem } from './GlassNavbar';
 import { GlassButton } from '../GlassButton';
