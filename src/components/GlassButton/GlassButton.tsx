@@ -96,6 +96,11 @@ export interface GlassButtonProps
     VariantProps<typeof glassButtonVariants> {
   /** Button content */
   children: React.ReactNode;
+  /** 
+   * Button type - defaults to "button" for safety.
+   * Set to "submit" for form submission buttons.
+   */
+  type?: "button" | "submit" | "reset";
   /** Show loading spinner */
   loading?: boolean;
   /** Icon to show on the left */
@@ -125,6 +130,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
       variant,
       size,
       fullWidth,
+      type = "button", // Safe default - must explicitly set "submit" for forms
       loading = false,
       leftIcon,
       rightIcon,
@@ -146,6 +152,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
     return (
       <motion.button
         ref={ref}
+        type={type}
         className={cn(
           glassButtonVariants({ variant, size, fullWidth }),
           className

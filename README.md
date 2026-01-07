@@ -50,21 +50,41 @@ import '@mawtech/glass-ui/styles.css';
 ### 2. Use Components
 
 ```tsx
+import { useState } from 'react';
 import { GlassCard, GlassButton, GlassInput } from '@mawtech/glass-ui';
 
 function App() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Submitted:', { email, password });
+  };
+
   return (
     <div className="min-h-screen bg-glass-dark p-8">
       <GlassCard variant="glow" padding="lg">
-        <h2 className="text-2xl font-bold text-white mb-4">Welcome</h2>
-        <GlassInput 
-          label="Email" 
-          placeholder="Enter your email"
-          type="email"
-        />
-        <GlassButton variant="primary" className="mt-4">
-          Get Started
-        </GlassButton>
+        <h2 className="text-2xl font-bold text-white mb-4">Sign In</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <GlassInput 
+            label="Email" 
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+          />
+          <GlassInput 
+            label="Password" 
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+          />
+          <GlassButton type="submit" variant="primary" fullWidth>
+            Sign In
+          </GlassButton>
+        </form>
       </GlassCard>
     </div>
   );
@@ -77,6 +97,68 @@ function App() {
 - **GlassCard** - Container with glassmorphism effect
 - **GlassButton** - Button with multiple variants
 - **GlassInput** - Text input with icons and validation
+
+### GlassButton
+
+```tsx
+// Regular button (default type="button")
+<GlassButton onClick={() => console.log('clicked')}>
+  Click me
+</GlassButton>
+
+// Form submit button - MUST specify type="submit"
+<form onSubmit={handleSubmit}>
+  <GlassButton type="submit">Submit Form</GlassButton>
+</form>
+
+// With loading state
+<GlassButton loading>Processing...</GlassButton>
+
+// With icons
+<GlassButton leftIcon={<IconPlus />}>Add Item</GlassButton>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type. **Must be "submit" for form submission** |
+| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'danger'` | `'primary'` | Visual style |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Button size |
+| `loading` | `boolean` | `false` | Shows loading spinner, disables button |
+| `disabled` | `boolean` | `false` | Disables the button |
+
+### GlassInput
+
+Works as both controlled and uncontrolled component:
+
+```tsx
+// Controlled (recommended for forms)
+const [email, setEmail] = useState('');
+
+<GlassInput
+  label="Email"
+  type="email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  placeholder="you@example.com"
+  error={!email ? 'Email is required' : undefined}
+/>
+
+// Uncontrolled
+<GlassInput
+  label="Username"
+  defaultValue="john_doe"
+  name="username"
+/>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Label text above input |
+| `error` | `string` | - | Error message (shows in red) |
+| `helperText` | `string` | - | Helper text below input |
+| `inputSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Input size |
+| `leftIcon` | `ReactNode` | - | Icon inside input (left) |
+| `rightIcon` | `ReactNode` | - | Icon inside input (right) |
 
 ### Form
 - **GlassTextarea** - Multi-line text input

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-01-06
+
+### Fixed
+
+- **GlassButton**: Fixed form submission - button now properly supports `type="submit"` for form submission
+  - Added explicit `type` prop with safe default of `"button"` (prevents accidental form submissions)
+  - Must now explicitly set `type="submit"` for form submit buttons
+- **GlassInput**: Improved controlled component support
+  - Explicitly handles `value`, `defaultValue`, and `onChange` props for better React controlled component patterns
+  - Uses React `useId()` hook for stable ID generation instead of random IDs
+
+### Changed
+
+- **GlassButton**: Default `type` is now `"button"` instead of browser default `"submit"` (safer default)
+- Updated documentation with proper form usage examples
+
 ## [0.1.0] - 2024-12-08
 
 ### Added

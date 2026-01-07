@@ -5,7 +5,7 @@
  * @see https://mawtechsolutions.com
  */
 
-import React, { forwardRef, useState } from 'react';
+import { forwardRef, useState, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../utils/cn';
 
@@ -38,7 +38,7 @@ const glassInputVariants = cva(
 );
 
 export interface GlassInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
     VariantProps<typeof glassInputVariants> {
   /** Input label */
   label?: string;
@@ -47,9 +47,9 @@ export interface GlassInputProps
   /** Error message */
   error?: string;
   /** Icon on the left side */
-  leftIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
   /** Icon on the right side */
-  rightIcon?: React.ReactNode;
+  rightIcon?: ReactNode;
   /** Full width input */
   fullWidth?: boolean;
   /** Additional container classes */
@@ -83,14 +83,19 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
       containerClassName,
       type = 'text',
       id,
+      // Controlled component props - passed through to native input
+      value,
+      defaultValue,
+      onChange,
       ...props
     },
     ref
   ) => {
+    const generatedId = useId();
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === 'password';
     const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
-    const inputId = id || `glass-input-${Math.random().toString(36).substr(2, 9)}`;
+    const inputId = id || generatedId;
 
     return (
       <div className={cn('flex flex-col gap-1.5', fullWidth && 'w-full', containerClassName)}>
@@ -120,6 +125,10 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
               (rightIcon || isPassword) && 'pr-10',
               className
             )}
+            // Controlled component props - explicitly passed for clarity
+            value={value}
+            defaultValue={defaultValue}
+            onChange={onChange}
             {...props}
           />
 
