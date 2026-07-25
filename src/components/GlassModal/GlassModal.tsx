@@ -13,7 +13,11 @@ import { cn } from "../../utils/cn";
 
 const glassModalVariants = cva(
   [
-    "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+    // Centering lives on the static frame div, NOT here: this element is
+    // animated by framer-motion, which owns `transform` and rests it at
+    // `none` — transform-based centering (left/top-1/2 + -translate-1/2)
+    // gets wiped the moment the open animation settles.
+    "relative pointer-events-auto",
     "w-full bg-glass-card/90 backdrop-blur-glass-lg",
     "border border-white/12 rounded-glass",
     "shadow-glass-lg",
@@ -29,7 +33,9 @@ const glassModalVariants = cva(
         lg: "max-w-lg",
         xl: "max-w-xl",
         "2xl": "max-w-2xl",
-        full: "max-w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]",
+        // 100% here is the centering frame's grid area, which already sits
+        // 1rem inside the viewport (the frame's p-4) — no extra calc needed.
+        full: "max-w-full max-h-full",
       },
     },
     defaultVariants: {
@@ -131,46 +137,54 @@ export const GlassModal = forwardRef<HTMLDivElement, GlassModalProps>(
                 />
               </DialogPrimitive.Overlay>
 
-              <DialogPrimitive.Content asChild>
-                <motion.div
-                  ref={ref}
-                  className={cn(glassModalVariants({ size }), contentClassName)}
-                  variants={contentVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                >
-                  {showClose && (
-                    <DialogPrimitive.Close
-                      className={cn(
-                        "absolute top-4 right-4",
-                        "p-2 rounded-lg",
-                        "text-white/50 hover:text-white hover:bg-white/10",
-                        "transition-colors duration-150",
-                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan"
-                      )}
-                      aria-label="Close"
-                    >
-                      <CloseIcon />
-                    </DialogPrimitive.Close>
-                  )}
+              {/* Static centering frame: grid-centers the panel so the panel's
+                  own `transform` stays free for framer-motion (which rests it
+                  at `none` after animating — it must never carry centering).
+                  pointer-events-none lets clicks in the margin area fall
+                  through to the Overlay, preserving close-on-backdrop; the
+                  panel re-enables pointer events on itself. */}
+              <div className="fixed inset-0 z-50 grid place-items-center p-4 pointer-events-none">
+                <DialogPrimitive.Content asChild>
+                  <motion.div
+                    ref={ref}
+                    className={cn(glassModalVariants({ size }), contentClassName)}
+                    variants={contentVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    {showClose && (
+                      <DialogPrimitive.Close
+                        className={cn(
+                          "absolute top-4 right-4",
+                          "p-2 rounded-lg",
+                          "text-white/50 hover:text-white hover:bg-white/10",
+                          "transition-colors duration-150",
+                          "focus:outline-none focus-visible:ring-2 focus-visible:ring-glass-cyan"
+                        )}
+                        aria-label="Close"
+                      >
+                        <CloseIcon />
+                      </DialogPrimitive.Close>
+                    )}
 
-                  {title && (
-                    <DialogPrimitive.Title className="text-xl font-semibold text-white mb-2">
-                      {title}
-                    </DialogPrimitive.Title>
-                  )}
+                    {title && (
+                      <DialogPrimitive.Title className="text-xl font-semibold text-white mb-2">
+                        {title}
+                      </DialogPrimitive.Title>
+                    )}
 
-                  {description && (
-                    <DialogPrimitive.Description className="text-sm text-white/60 mb-4">
-                      {description}
-                    </DialogPrimitive.Description>
-                  )}
+                    {description && (
+                      <DialogPrimitive.Description className="text-sm text-white/60 mb-4">
+                        {description}
+                      </DialogPrimitive.Description>
+                    )}
 
-                  {children}
-                </motion.div>
-              </DialogPrimitive.Content>
+                    {children}
+                  </motion.div>
+                </DialogPrimitive.Content>
+              </div>
             </DialogPrimitive.Portal>
           )}
         </AnimatePresence>

@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-07-24
+
+### Fixed
+
+- **GlassModal**: the panel lost its centering the moment the open animation settled — its top-left corner landed at the viewport centre, pushing most of the modal off-screen. Root cause: the panel centered itself with transform classes (`left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`) on the same element framer-motion animates; framer owns `transform` and rests it at `none`, wiping the counter-shift. The bug is masked under `prefers-reduced-motion` (the transform never animates), which is how it escaped testing. Centering now lives on a static full-screen frame (`fixed inset-0 grid place-items-center`) wrapping the panel, so framer keeps exclusive ownership of the panel's `transform`; the frame is `pointer-events-none` (backdrop clicks still close the modal) and the panel re-enables its own pointer events.
+
+### Changed
+
+- **GlassModal**: the centering frame adds `p-4`, so the panel keeps a 1rem margin from the viewport edges at every size.
+
+### Added
+
+- First component regression tests (vitest + jsdom + Testing Library) pinning the GlassModal centering contract.
+
 ## [0.2.0] - 2026-01-06
 
 ### Fixed
