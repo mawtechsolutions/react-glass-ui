@@ -9,8 +9,11 @@ services:
       - "8081:80"
     networks:
       - glass-ui-network
+      # Nginx Proxy Manager reaches the container here for glass-ui.mawtechsolutions.com
+      - proxy-network
 
 networks:
   glass-ui-network:
     driver: bridge
-
+  proxy-network:
+    external: true
